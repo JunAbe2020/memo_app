@@ -3,7 +3,10 @@
 use function Livewire\Volt\{state};
 use \App\Models\Memo;
 
-state(['memos' => fn() => Memo::all()]);
+state([
+    'memos' => fn() => Memo::all(),
+    'priority',
+]);
 
 $create =function() {
     return redirect()->route('memos.create');
@@ -18,6 +21,13 @@ $create =function() {
             <li>
                 <a href="{{ route('memos.show', $memo->id) }}">
                     {{ $memo->title }}
+                    @if ($memo->priority == '1')
+                        <p>1:低</p>
+                    @elseif ($memos.priority == '2')
+                        <p>2:中</p>
+                    @else
+                        <p>3:高</p>
+                    @endif
                 </a>
             </li>
         @endforeach
